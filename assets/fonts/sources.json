@@ -1,0 +1,28 @@
+[
+  {
+    "family": "Inter",
+    "file": "inter.ttf",
+    "licenseFile": "inter-OFL.txt",
+    "commit": "0b58fb370093f9a9f4ff785d94405710b79de67c",
+    "source": "https://raw.githubusercontent.com/google/fonts/0b58fb370093f9a9f4ff785d94405710b79de67c/ofl/inter/Inter%5Bopsz%2Cwght%5D.ttf",
+    "licenseSource": "https://raw.githubusercontent.com/google/fonts/0b58fb370093f9a9f4ff785d94405710b79de67c/ofl/inter/OFL.txt",
+    "sha256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
+    "licenseSha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
+    "license": "SIL Open Font License 1.1",
+    "checkedDate": "2026-10-13",
+    "style": "upright variable font"
+  },
+  {
+    "family": "Fraunces",
+    "file": "fraunces.ttf",
+    "licenseFile": "fraunces-OFL.txt",
+    "commit": "4024282d9b0cffcdb8e3024560862746178d741f",
+    "source": "https://raw.githubusercontent.com/google/fonts/4024282d9b0cffcdb8e3024560862746178d741f/ofl/fraunces/Fraunces%5BSOFT%2CWONK%2Copsz%2Cwght%5D.ttf",
+    "licenseSource": "https://raw.githubusercontent.com/google/fonts/4024282d9b0cffcdb8e3024560862746178d741f/ofl/fraunces/OFL.txt",
+    "sha256": "177ff6c0f14e5550a3c624247cd1189611d4eb65d000b14944c63d967958abbb",
+    "licenseSha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b",
+    "license": "SIL Open Font License 1.1",
+    "checkedDate": "2026-10-13",
+    "style": "upright variable font"
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "expectedVersion": 3,
+  "sampleHash": "Copy the exact hash from the sample manifest.",
+  "approvedBy": "Use the actual reviewer's name.",
+  "basis": "Copy the owner's approval of this exact sample from the chat."
+}

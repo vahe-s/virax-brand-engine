@@ -1,0 +1,10 @@
+{
+  "expectedVersion": 2,
+  "styleId": "precision",
+  "reason": "The owner requested a simple diamond with mirror symmetry.",
+  "customSymbol": {
+    "elements": [
+      { "tag": "path", "attrs": { "d": "M256 96 416 256 256 416 96 256Z M256 192 192 256 256 320 320 256Z", "fill-rule": "evenodd" } }
+    ]
+  }
+}

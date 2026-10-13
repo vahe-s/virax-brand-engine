@@ -1,0 +1,23 @@
+[
+  { "id": "businessName", "stage": "Business", "question": "What is your business called?", "required": true },
+  { "id": "offer", "stage": "Business", "question": "What do you sell or do?", "required": true },
+  { "id": "market", "stage": "Business", "question": "Where do you serve customers?", "required": true },
+  { "id": "audience", "stage": "Customers", "question": "Who is your main customer?", "required": true },
+  { "id": "difference", "stage": "Customers", "question": "Why should this customer choose your business?", "required": true },
+  { "id": "goal", "stage": "Customers", "question": "What should your new brand help you achieve?", "required": true },
+  { "id": "personality", "stage": "Character", "question": "Which three words should describe your brand?", "required": true },
+  { "id": "avoid", "stage": "Character", "question": "Which styles, symbols, or colors must we avoid?", "required": true },
+  { "id": "references", "stage": "Character", "question": "Do you have references, or should I suggest original ideas?", "required": true },
+  { "id": "logoType", "stage": "Logo", "question": "Do you prefer a name logo, initials, a symbol, or a combined logo?", "required": true },
+  { "id": "symmetry", "stage": "Logo", "question": "Should the symbol use mirror symmetry, rotational symmetry, or optical balance?", "required": true },
+  { "id": "uses", "stage": "Logo", "question": "Where will the logo appear, and which use needs the smallest version?", "required": true },
+  { "id": "colorPreferences", "stage": "Type and color", "question": "Which colors do you like, and which colors are required?", "required": true },
+  { "id": "fontPreferences", "stage": "Type and color", "question": "Should the type feel modern, traditional, bold, friendly, or custom?", "required": true },
+  { "id": "languages", "stage": "Type and color", "question": "Which languages and scripts must the fonts support?", "required": true },
+  { "id": "existingAssets", "stage": "Practical needs", "question": "Do you have a current logo or licensed font files?", "required": true },
+  { "id": "deliverables", "stage": "Practical needs", "question": "Which items do you need besides the logo, fonts, and color palette?", "required": true },
+  { "id": "budget", "stage": "Practical needs", "question": "What is your budget for paid fonts or other paid tools?", "required": true },
+  { "id": "voice", "stage": "Brand voice", "question": "How should your business speak to customers?", "required": true },
+  { "id": "rules", "stage": "Brand voice", "question": "Which rules must every future design follow?", "required": true },
+  { "id": "reviewer", "stage": "Brand voice", "question": "Who will approve the logo sample and final kit?", "required": true }
+]
