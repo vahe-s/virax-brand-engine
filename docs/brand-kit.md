@@ -7,6 +7,7 @@ The kit must explain how the logo, type, colors, and voice work together.
 ## Core files
 
 - A business brief and current brand rules.
+- The exact design plan with icon subjects and business reasons.
 - Clean symbol and primary logo SVG files.
 - Black and white versions for one-color use.
 - A separate SVG with construction guides.

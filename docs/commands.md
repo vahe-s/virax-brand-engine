@@ -10,6 +10,7 @@ npm run engine -- init "Your business"
 npm run engine -- next BRAND_ID
 npm run engine -- show BRAND_ID
 npm run engine -- save BRAND_ID answers.json
+npm run engine -- plan BRAND_ID design-plan.json
 npm run engine -- directions BRAND_ID
 npm run engine -- select BRAND_ID selection.json
 npm run engine -- sample BRAND_ID CURRENT_VERSION
@@ -18,7 +19,11 @@ npm run engine -- kit BRAND_ID
 ```
 
 Read templates/answers.json and templates/selection.json for the input format.
-Use templates/custom-symbol.json for a custom geometric symbol.
+Use templates/design-plan.json for the concept records.
+Use templates/custom-symbol.json inside a concept's `customSymbol` field.
+See examples/coffee-design-plan.json for a complete fictional example.
+Create business-linked geometry for every concept before the `directions` command.
+The engine rejects an absent plan or missing design answers.
 Update `expectedVersion` to the actual current version before a save or selection.
 The engine rejects stale versions.
 It keeps the earlier profile in the history folder.

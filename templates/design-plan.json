@@ -1,0 +1,173 @@
+{
+  "expectedVersion": 2,
+  "businessSummary": "",
+  "referenceReview": {
+    "mode": "none",
+    "summary": "",
+    "sources": []
+  },
+  "abstractPermission": null,
+  "concepts": [
+    {
+      "styleId": "precision",
+      "title": "",
+      "subject": "",
+      "representation": "stylized",
+      "businessConnection": "",
+      "customerReason": "",
+      "fontReason": "",
+      "colorReason": "",
+      "symmetryReason": "",
+      "answerLinks": [
+        "offer",
+        "visualSubjects"
+      ],
+      "customSymbol": {
+        "elements": []
+      },
+      "palette": {
+        "ink": "",
+        "accent": "",
+        "paper": ""
+      }
+    },
+    {
+      "styleId": "editorial",
+      "title": "",
+      "subject": "",
+      "representation": "stylized",
+      "businessConnection": "",
+      "customerReason": "",
+      "fontReason": "",
+      "colorReason": "",
+      "symmetryReason": "",
+      "answerLinks": [
+        "offer",
+        "visualSubjects"
+      ],
+      "customSymbol": {
+        "elements": []
+      },
+      "palette": {
+        "ink": "",
+        "accent": "",
+        "paper": ""
+      }
+    },
+    {
+      "styleId": "bold",
+      "title": "",
+      "subject": "",
+      "representation": "stylized",
+      "businessConnection": "",
+      "customerReason": "",
+      "fontReason": "",
+      "colorReason": "",
+      "symmetryReason": "",
+      "answerLinks": [
+        "offer",
+        "visualSubjects"
+      ],
+      "customSymbol": {
+        "elements": []
+      },
+      "palette": {
+        "ink": "",
+        "accent": "",
+        "paper": ""
+      }
+    },
+    {
+      "styleId": "heritage",
+      "title": "",
+      "subject": "",
+      "representation": "stylized",
+      "businessConnection": "",
+      "customerReason": "",
+      "fontReason": "",
+      "colorReason": "",
+      "symmetryReason": "",
+      "answerLinks": [
+        "offer",
+        "visualSubjects"
+      ],
+      "customSymbol": {
+        "elements": []
+      },
+      "palette": {
+        "ink": "",
+        "accent": "",
+        "paper": ""
+      }
+    },
+    {
+      "styleId": "luxury",
+      "title": "",
+      "subject": "",
+      "representation": "stylized",
+      "businessConnection": "",
+      "customerReason": "",
+      "fontReason": "",
+      "colorReason": "",
+      "symmetryReason": "",
+      "answerLinks": [
+        "offer",
+        "visualSubjects"
+      ],
+      "customSymbol": {
+        "elements": []
+      },
+      "palette": {
+        "ink": "",
+        "accent": "",
+        "paper": ""
+      }
+    },
+    {
+      "styleId": "playful",
+      "title": "",
+      "subject": "",
+      "representation": "stylized",
+      "businessConnection": "",
+      "customerReason": "",
+      "fontReason": "",
+      "colorReason": "",
+      "symmetryReason": "",
+      "answerLinks": [
+        "offer",
+        "visualSubjects"
+      ],
+      "customSymbol": {
+        "elements": []
+      },
+      "palette": {
+        "ink": "",
+        "accent": "",
+        "paper": ""
+      }
+    },
+    {
+      "styleId": "technical",
+      "title": "",
+      "subject": "",
+      "representation": "stylized",
+      "businessConnection": "",
+      "customerReason": "",
+      "fontReason": "",
+      "colorReason": "",
+      "symmetryReason": "",
+      "answerLinks": [
+        "offer",
+        "visualSubjects"
+      ],
+      "customSymbol": {
+        "elements": []
+      },
+      "palette": {
+        "ink": "",
+        "accent": "",
+        "paper": ""
+      }
+    }
+  ]
+}

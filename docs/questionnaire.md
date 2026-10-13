@@ -28,6 +28,11 @@ Do not copy distinctive artwork.
 
 ## Logo structure
 
+Ask which product or service the symbol should show.
+Ask for useful photos or references, if available.
+Offer relevant original subjects when references are absent.
+Follow docs/design-logic.md before artwork.
+
 Explain these choices with small visual examples:
 
 - A wordmark uses the business name as the logo.
@@ -65,8 +70,9 @@ Do not ask the same question again unless the answer creates a specific conflict
 Show seven directions with real previews.
 State why each direction fits this business.
 Show a symbol, name treatment, font pair, palette, and one relevant use for each direction.
-The CLI board provides starter previews only.
-Adapt the board or create custom boards before you call the directions business-specific.
+The CLI board renders the business-linked geometry from the saved design plan.
+It shows the subject, business connection, customer reason, and font and color reasons.
+Check those reasons against the actual brief.
 
 Allow the owner to combine parts or request a new direction.
 Create one sample in the chosen direction.

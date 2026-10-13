@@ -1,12 +1,12 @@
-# Initial validation
+# Validation
 
 Check date: 2026-10-13.
 Test environment: Windows with Node.js 22.16.0 and headless Chrome.
 
 ## Code checks
 
-- All 13 automated tests passed.
-- The local doctor reported the expected fonts, seven styles, and 21 questions.
+- All 19 automated tests passed after the design-plan update.
+- The local doctor reported the expected fonts, seven styles, and 22 questions.
 - The public file check passed syntax, JSON, required document, font hash, and secret pattern checks.
 - The two public example SVG files passed XML parsing.
 
@@ -21,7 +21,7 @@ Both bundled font families loaded from local files.
 The screenshots received direct visual inspection.
 The phone-width pages showed readable text without horizontal overflow.
 
-The seven starter symbols passed a raster check across the vertical center axis.
+The seven fictional coffee concepts passed a raster check across the vertical center axis.
 The check compares mirrored alpha values at 512 by 512 pixels.
 Alpha is the opacity value of a pixel.
 It permits small differences at smooth edges.
@@ -33,6 +33,6 @@ Use `node scripts/browser-qa.js` to create a new report for the current code.
 
 ## Scope
 
-These checks apply to the engine, starter symbols, and fictional Fieldwork Coffee example.
+These checks apply to the engine and fictional Fieldwork Coffee example.
 Each new business still needs its own geometry, language, minimum-size, and final delivery checks.
 No outlined wordmark, printer proof, or real business approval formed part of this engine test.

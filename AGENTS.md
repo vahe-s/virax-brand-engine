@@ -1,11 +1,19 @@
 # VIRAX Brand Engine agent rules
 
 Read START-HERE.md and docs/agent-workflow.md before setup or design work.
+Read docs/design-logic.md before any logo concept.
 Use the project chat as the main questionnaire.
 Ask at most three short questions at once.
 Save useful answers and skip answered questions.
 Offer original ideas and supplied references as equal paths.
 Never require a reference to start.
+Ask which product or service the symbol should show.
+Inspect supplied references and record their visual details.
+Start with recognizable business subjects when references are absent.
+Explain each subject's connection to the offer and customers before artwork.
+Save a business-linked design plan before previews.
+Record the owner's permission before an abstract symbol.
+Do not choose an unrelated catalog icon from a style name.
 Inspect the current private profile before any brand change.
 Keep private business data outside tracked files.
 

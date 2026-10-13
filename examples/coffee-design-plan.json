@@ -1,0 +1,324 @@
+{
+  "expectedVersion": 2,
+  "businessSummary": "Fieldwork Coffee is a fictional neighborhood cafe. Its customers want calm service and a clear menu.",
+  "referenceReview": {
+    "mode": "none",
+    "summary": "The fictional owner chose original ideas. Use recognizable coffee subjects instead of unrelated geometric icons.",
+    "sources": []
+  },
+  "concepts": [
+    {
+      "styleId": "precision",
+      "title": "One clear coffee bean",
+      "subject": "Coffee bean",
+      "representation": "stylized",
+      "businessConnection": "The cafe sells coffee beans. An oval bean with a central seam identifies that product.",
+      "customerReason": "A single clear shape supports the calm, simple menu in the brief.",
+      "fontReason": "Inter keeps the business name clear on signs and cups.",
+      "colorReason": "Dark brown and warm paper follow the saved preference. A restrained rust accent supports the calm character.",
+      "symmetryReason": "The oval and central seam use vertical mirror symmetry.",
+      "answerLinks": [
+        "offer",
+        "visualSubjects",
+        "audience",
+        "personality",
+        "uses"
+      ],
+      "customSymbol": {
+        "elements": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M256 96a112 160 0 1 0 0 320 112 160 0 0 0 0-320Z M256 128a16 128 0 1 1 0 256 16 128 0 0 1 0-256Z",
+              "fill-rule": "evenodd"
+            }
+          }
+        ]
+      },
+      "palette": {
+        "ink": "#33271E",
+        "accent": "#99603A",
+        "paper": "#FAF5ED"
+      }
+    },
+    {
+      "styleId": "editorial",
+      "title": "A warm cup of coffee",
+      "subject": "Coffee cup and saucer",
+      "representation": "stylized",
+      "businessConnection": "The cup represents cafe service. The saucer suggests a calm visit rather than takeaway speed.",
+      "customerReason": "The brief describes neighborhood adults who value patient service and a calm cafe.",
+      "fontReason": "Fraunces adds warmth to the name. Inter keeps menu and body text clear.",
+      "colorReason": "Dark brown, warm paper, and rust follow the owner's saved color preference.",
+      "symmetryReason": "The cup uses a front view without a visible handle. Its body and saucer share the vertical center axis.",
+      "answerLinks": [
+        "offer",
+        "visualSubjects",
+        "audience",
+        "personality",
+        "uses"
+      ],
+      "customSymbol": {
+        "elements": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M128 192h256l-24 112c-8 40-48 64-104 64s-96-24-104-64Z M168 224l16 72c6 22 30 40 72 40s66-18 72-40l16-72Z",
+              "fill-rule": "evenodd"
+            }
+          },
+          {
+            "tag": "rect",
+            "attrs": {
+              "x": 96,
+              "y": 384,
+              "width": 320,
+              "height": 24,
+              "rx": 12
+            }
+          },
+          {
+            "tag": "rect",
+            "attrs": {
+              "x": 244,
+              "y": 104,
+              "width": 24,
+              "height": 56,
+              "rx": 12
+            }
+          }
+        ]
+      },
+      "palette": {
+        "ink": "#38271F",
+        "accent": "#A74626",
+        "paper": "#FFF6E8"
+      }
+    },
+    {
+      "styleId": "bold",
+      "title": "Coffee to take away",
+      "subject": "Takeaway coffee cup",
+      "representation": "stylized",
+      "businessConnection": "A lidded cup identifies coffee service and the cup application requested in the brief.",
+      "customerReason": "The thick silhouette remains clear on small cup labels and larger signs.",
+      "fontReason": "Heavy Inter matches the compact cup and supports distant visibility.",
+      "colorReason": "A strong rust accent relates to the saved warm color preference.",
+      "symmetryReason": "The lid, tapered body, and central band share vertical mirror symmetry.",
+      "answerLinks": [
+        "offer",
+        "visualSubjects",
+        "audience",
+        "uses"
+      ],
+      "customSymbol": {
+        "elements": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M144 112h224l24 48H120Z M136 192h240l-40 224H176Z M160 256h192l-8 48H168Z",
+              "fill-rule": "evenodd"
+            }
+          }
+        ]
+      },
+      "palette": {
+        "ink": "#201B17",
+        "accent": "#A74626",
+        "paper": "#FFF6E8"
+      }
+    },
+    {
+      "styleId": "heritage",
+      "title": "Coffee bean seal",
+      "subject": "Coffee bean inside a round seal",
+      "representation": "stylized",
+      "businessConnection": "The bean identifies the coffee product. The seal provides a compact format for packaging.",
+      "customerReason": "A clear product subject helps customers identify a bag of beans at a glance.",
+      "fontReason": "The serif name supports a traditional tone. It does not imply a real founding date.",
+      "colorReason": "Brown ink and warm paper follow the saved preference and support the traditional type.",
+      "symmetryReason": "The circular seal and central bean share the vertical and horizontal axes.",
+      "answerLinks": [
+        "offer",
+        "visualSubjects",
+        "audience",
+        "uses"
+      ],
+      "customSymbol": {
+        "elements": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M256 80a176 176 0 1 0 0 352 176 176 0 0 0 0-352Z M256 112a144 144 0 1 1 0 288 144 144 0 0 1 0-288Z M256 152a72 104 0 1 0 0 208 72 104 0 0 0 0-208Z M256 176a12 80 0 1 1 0 160 12 80 0 0 1 0-160Z",
+              "fill-rule": "evenodd"
+            }
+          }
+        ]
+      },
+      "palette": {
+        "ink": "#3B3024",
+        "accent": "#8C4B26",
+        "paper": "#F5F0DF"
+      }
+    },
+    {
+      "styleId": "luxury",
+      "title": "A fine coffee bean",
+      "subject": "Outlined coffee bean",
+      "representation": "stylized",
+      "businessConnection": "The bean keeps the product recognizable while a light outline creates a quieter treatment.",
+      "customerReason": "Open space supports the calm cafe described in the brief.",
+      "fontReason": "A lighter Fraunces name complements the thin outline. Check small-size legibility before use.",
+      "colorReason": "Dark ink and warm paper preserve calm contrast. The muted accent offers an optional refined tone.",
+      "symmetryReason": "The inner and outer ovals share one center. The seam follows the vertical axis.",
+      "answerLinks": [
+        "offer",
+        "visualSubjects",
+        "audience",
+        "personality",
+        "uses"
+      ],
+      "customSymbol": {
+        "elements": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M256 96a112 160 0 1 0 0 320 112 160 0 0 0 0-320Z M256 120a88 136 0 1 1 0 272 88 136 0 0 1 0-272Z",
+              "fill-rule": "evenodd"
+            }
+          },
+          {
+            "tag": "rect",
+            "attrs": {
+              "x": 248,
+              "y": 144,
+              "width": 16,
+              "height": 224,
+              "rx": 8
+            }
+          }
+        ]
+      },
+      "palette": {
+        "ink": "#302720",
+        "accent": "#796036",
+        "paper": "#FAF7F2"
+      }
+    },
+    {
+      "styleId": "playful",
+      "title": "A friendly coffee cup",
+      "subject": "Rounded cup with a steam mark",
+      "representation": "stylized",
+      "businessConnection": "The cup and steam suggest a warm drink served at the cafe.",
+      "customerReason": "Rounded shapes offer a more friendly alternative while the subject stays clear.",
+      "fontReason": "Bold Inter supports the soft, compact silhouette.",
+      "colorReason": "A brighter rust accent supports the friendly character while the brown and paper colors follow the saved preference.",
+      "symmetryReason": "The handle-free cup and central steam mark use vertical mirror symmetry.",
+      "answerLinks": [
+        "offer",
+        "visualSubjects",
+        "audience",
+        "personality"
+      ],
+      "customSymbol": {
+        "elements": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M112 208h288v96c0 64-64 112-144 112S112 368 112 304Z M152 248v56c0 40 44 72 104 72s104-32 104-72v-56Z",
+              "fill-rule": "evenodd"
+            }
+          },
+          {
+            "tag": "rect",
+            "attrs": {
+              "x": 236,
+              "y": 96,
+              "width": 40,
+              "height": 80,
+              "rx": 20
+            }
+          }
+        ]
+      },
+      "palette": {
+        "ink": "#4A2E21",
+        "accent": "#B3522B",
+        "paper": "#FFF8EC"
+      }
+    },
+    {
+      "styleId": "technical",
+      "title": "The coffee plant",
+      "subject": "Coffee plant with paired leaves",
+      "representation": "stylized",
+      "businessConnection": "The plant connects the coffee product to its botanical source. It does not claim a farm or certified origin.",
+      "customerReason": "The paired leaves provide a clear plant subject for a product-led identity.",
+      "fontReason": "Crisp Inter supports the modular structure and clear menu goal.",
+      "colorReason": "Warm brown and paper preserve the saved palette. The measured contrast supports clear labels and menus.",
+      "symmetryReason": "Equal leaves sit on opposite sides of a central stem.",
+      "answerLinks": [
+        "offer",
+        "visualSubjects",
+        "audience",
+        "uses"
+      ],
+      "customSymbol": {
+        "elements": [
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 180,
+              "cy": 176,
+              "rx": 64,
+              "ry": 40
+            }
+          },
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 332,
+              "cy": 176,
+              "rx": 64,
+              "ry": 40
+            }
+          },
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 180,
+              "cy": 288,
+              "rx": 64,
+              "ry": 40
+            }
+          },
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 332,
+              "cy": 288,
+              "rx": 64,
+              "ry": 40
+            }
+          },
+          {
+            "tag": "rect",
+            "attrs": {
+              "x": 244,
+              "y": 152,
+              "width": 24,
+              "height": 264,
+              "rx": 12
+            }
+          }
+        ]
+      },
+      "palette": {
+        "ink": "#322C25",
+        "accent": "#8C552C",
+        "paper": "#F9F4EA"
+      }
+    }
+  ]
+}

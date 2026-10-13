@@ -12,7 +12,8 @@ Tell your agent:
 ## What you can create
 
 - A private business brief and saved brand rules.
-- Seven visual directions for comparison.
+- A design plan that links icon subjects to the business and customers.
+- Seven business-linked visual directions for comparison.
 - Original SVG symbols and editable logo drafts.
 - Separate SVG files with construction guides.
 - Font comparisons and a record of font sources.
@@ -31,11 +32,12 @@ You do not need a second chat interface or an online account for this repo.
 ## How setup works
 
 1. Answer up to three questions at a time.
-2. Compare seven directions that the agent adapts to your business.
-3. Choose or combine the directions.
-4. Review one logo sample with its fonts, colors, and construction guides.
-5. Approve the exact sample before the agent exports the kit.
-6. Review the final files and save the approved brand rules.
+2. Review the icon subjects and business reasons before artwork.
+3. Compare seven concepts from that plan.
+4. Choose or combine the directions.
+5. Review one logo sample with its fonts, colors, and construction guides.
+6. Approve the exact sample before the agent exports the kit.
+7. Review the final files and save the approved brand rules.
 
 References are optional.
 You can say, “I do not have references. Give me original ideas.”
@@ -56,19 +58,23 @@ npm run demo
 The demo creates a fictional Fieldwork Coffee project in `.data/`.
 It does not record a real approval.
 
-![Seven starter directions for the fictional Fieldwork Coffee example](examples/directions-preview.png)
+![Seven coffee-related concepts for the fictional Fieldwork Coffee example](examples/directions-preview.png)
 
 Read [docs/commands.md](docs/commands.md) for the agent commands.
 Read [docs/questionnaire.md](docs/questionnaire.md) for the interview flow.
+Read [docs/design-logic.md](docs/design-logic.md) for the decisions required before artwork.
 Read [docs/logo-construction.md](docs/logo-construction.md) for the SVG rules.
 Read [docs/brand-kit.md](docs/brand-kit.md) for the delivery checks.
 
 ## What the local tools do
 
-The local tools save answers and create deterministic starter artwork.
+The local tools save answers and render geometry from the business design plan.
 Deterministic artwork uses fixed rules and produces the same shapes from the same inputs.
 The agent supplies the research, design judgment, and custom geometry.
-The starter catalog is a point of departure, not a set of exclusive business logos.
+The style catalog supplies font and palette options.
+It does not choose an unrelated icon for the business.
+The engine requires each concept's subject, business connection, customer reason, and geometric source before artwork.
+The agent must inspect whether the artwork and reasons actually fit the brief.
 
 The generator exports editable SVG text.
 An outlined wordmark stores each letter as a shape.
@@ -110,5 +116,5 @@ Use `node scripts/browser-qa.js` for the optional headless browser checks.
 Headless means that the browser runs without a visible window.
 Set `VIRAX_CHROME` to a Chromium browser path when automatic detection does not find one.
 The check uses a separate temporary browser profile.
-It checks asset loads, page width, and vertical mirror geometry for the seven starter symbols.
+It checks asset loads, page width, and vertical mirror geometry for the seven fictional coffee concepts.
 The screenshots still need direct visual inspection.

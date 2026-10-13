@@ -23,13 +23,14 @@ Keep your profile and approved assets in your private project sources.
 5. Ask no more than three short questions at once.
 6. Save each answer before the next group.
 7. Follow docs/questionnaire.md as a guide.
-8. Show seven distinct directions that reflect the business brief.
-9. Explain the reason for each direction.
-10. Help the owner select, combine, or replace the directions.
-11. Create one custom logo sample with type, color, and geometry notes.
-12. Inspect the sample and show it in chat.
-13. Record approval only after the owner approves those exact files.
-14. Export the kit and complete its required delivery checks.
+8. Save and present the design plan before artwork.
+9. Show seven distinct directions that reflect the business brief.
+10. Explain the reason for each direction.
+11. Help the owner select, combine, or replace the directions.
+12. Create one custom logo sample with type, color, and geometry notes.
+13. Inspect the sample and show it in chat.
+14. Record approval only after the owner approves those exact files.
+15. Export the kit and complete its required delivery checks.
 
 Run authorized technical steps yourself when your tools permit them.
 Do not require a nontechnical owner to run commands that you can run.

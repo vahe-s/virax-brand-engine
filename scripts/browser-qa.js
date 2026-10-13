@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { root, init, save, select, sample, directions, readJSON, styles, json } from '../src/engine.js';
+import { root, init, save, plan, select, sample, directions, readJSON, styles, json } from '../src/engine.js';
 import { symbolSVG } from '../src/geometry.js';
 
 const executable = process.env.VIRAX_CHROME || [
@@ -53,6 +53,7 @@ try {
   await send('Runtime.enable');
   let profile = init('Fieldwork Coffee');
   profile = save(profile.id, readJSON(join(root, 'examples/fieldwork-answers.json')));
+  profile = plan(profile.id, { ...readJSON(join(root, 'examples/coffee-design-plan.json')), expectedVersion: profile.version });
   const board = directions(profile.id);
   profile = select(profile.id, { expectedVersion: profile.version, styleId: 'editorial', reason: 'The fictional cafe needs warm colors and clear type.' });
   const draft = sample(profile.id, profile.version);
@@ -85,7 +86,7 @@ try {
     }
   }
   for (const style of styles) {
-    const svg = symbolSVG(style);
+    const svg = symbolSVG(style, { custom: profile.designPlan.concepts.find(concept => concept.styleId === style.id).customSymbol });
     const result = await evaluate(`(async () => {
       const image = new Image();
       image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(${JSON.stringify(svg)});

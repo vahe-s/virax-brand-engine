@@ -8,6 +8,7 @@
   { "id": "personality", "stage": "Character", "question": "Which three words should describe your brand?", "required": true },
   { "id": "avoid", "stage": "Character", "question": "Which styles, symbols, or colors must we avoid?", "required": true },
   { "id": "references", "stage": "Character", "question": "Do you have references, or should I suggest original ideas?", "required": true },
+  { "id": "visualSubjects", "stage": "Symbol meaning", "question": "Which product or service should the symbol show? Do you prefer a clear image or an abstract idea?", "required": true },
   { "id": "logoType", "stage": "Logo", "question": "Do you prefer a name logo, initials, a symbol, or a combined logo?", "required": true },
   { "id": "symmetry", "stage": "Logo", "question": "Should the symbol use mirror symmetry, rotational symmetry, or optical balance?", "required": true },
   { "id": "uses", "stage": "Logo", "question": "Where will the logo appear, and which use needs the smallest version?", "required": true },

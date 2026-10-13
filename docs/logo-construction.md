@@ -15,9 +15,9 @@ A viewBox defines the coordinate area inside the SVG.
 6. Check negative space and the smallest intended size.
 7. Record any optical correction and its purpose.
 
-The starter symbols use a 512-unit coordinate area and a 32-unit grid.
-They use mirror symmetry around the vertical center axis.
-Some also use horizontal or rotational symmetry.
+The workbench uses a 512-unit coordinate area and a 32-unit grid.
+The fictional coffee concepts use vertical mirror symmetry.
+Custom business concepts use the symmetry rule in their design plan.
 Their grid, center axes, bounding reference, and circle appear in `symbol-guides.svg`.
 Those guides describe a construction frame.
 They do not prove that every shape lies on each guide.
@@ -28,7 +28,7 @@ It does not inherit the symbol's symmetry.
 
 ## Custom symbols
 
-Use templates/custom-symbol.json for the safe geometric input.
+Use templates/custom-symbol.json inside each concept in templates/design-plan.json.
 The input supports paths, rectangles, circles, ellipses, and polygons.
 The generator applies a single color to the complete symbol.
 Use a path with `fill-rule: evenodd` for internal cutouts.

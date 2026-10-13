@@ -2,7 +2,8 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, renameSync, cpSync 
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
-import { symbolSVG, logoSVG, escapeXML, customGeometry } from './geometry.js';
+import { symbolSVG, logoSVG, escapeXML } from './geometry.js';
+import { validatePlan, requirePlan, conceptFor } from './concepts.js';
 
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const styles = JSON.parse(readFileSync(join(root, 'catalog/styles.json'), 'utf8'));
@@ -26,6 +27,7 @@ function store(profile, previous) {
   const dir = brandDir(profile.id);
   if (previous) json(join(dir, 'history', `profile-v${previous.version}.json`), previous);
   json(join(dir, 'profile.json'), profile);
+  json(join(dir, 'design-plan.json'), profile.designPlan ?? null);
   write(join(dir, 'brand-profile.md'), `# ${profile.answers.businessName}\n\nProfile version: ${profile.version}\n\n` + questions.filter(q => profile.answers[q.id]).map(q => `## ${q.stage}: ${q.id}\n\n${profile.answers[q.id]}\n`).join('\n'));
   return profile;
 }
@@ -41,7 +43,7 @@ export function init(name) {
   if (typeof name !== 'string' || !name.trim() || name.length > 100) throw Error('Use a business name with 1 to 100 characters.');
   const prefix = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 48) || 'brand';
   const id = `${prefix}-${randomUUID().slice(0, 8)}`;
-  return store({ id, version: 1, answers: { businessName: name.trim() }, selection: null, sample: null, approval: null });
+  return store({ id, version: 1, answers: { businessName: name.trim() }, designPlan: null, selection: null, sample: null, approval: null });
 }
 export function next(id) {
   const profile = load(id);
@@ -56,7 +58,12 @@ export function save(id, input) {
     if (typeof value !== 'string' || !value.trim() || value.length > 10000) throw Error(`Use a nonempty text answer: ${key}`);
     if (key === 'businessName' && value.length > 100) throw Error('Use a business name with 1 to 100 characters.');
   }
-  return commit(profile, { answers: { ...profile.answers, ...input.answers }, sample: null, approval: null });
+  return commit(profile, { answers: { ...profile.answers, ...input.answers }, designPlan: null, selection: null, sample: null, approval: null });
+}
+export function plan(id, input) {
+  const profile = current(id, input.expectedVersion);
+  const designPlan = validatePlan(profile, input, styles);
+  return commit(profile, { designPlan, selection: null, sample: null, approval: null });
 }
 function validatePalette(palette) {
   if (!palette || Object.keys(palette).sort().join(',') !== 'accent,ink,paper') throw Error('Supply ink, paper, and accent colors.');
@@ -65,10 +72,11 @@ function validatePalette(palette) {
 export function select(id, input) {
   const profile = current(id, input.expectedVersion);
   if (!styles.some(s => s.id === input.styleId)) throw Error('Unknown style ID.');
+  const concept = conceptFor(profile, input.styleId);
   if (typeof input.reason !== 'string' || !input.reason.trim()) throw Error('Record the reason for this choice.');
   if (input.palette) validatePalette(input.palette);
-  if (input.customSymbol) customGeometry(input.customSymbol);
-  return commit(profile, { selection: { styleId: input.styleId, reason: input.reason, ...(input.palette ? { palette: input.palette } : {}), ...(input.customSymbol ? { customSymbol: input.customSymbol } : {}) }, sample: null, approval: null });
+  if (input.customSymbol) throw Error('Revise the design plan before you change the symbol.');
+  return commit(profile, { selection: { styleId: input.styleId, reason: input.reason, ...(input.palette ? { palette: input.palette } : {}), customSymbol: concept.customSymbol }, sample: null, approval: null });
 }
 export function contrast(a, b) {
   const luminance = hex => {
@@ -81,10 +89,11 @@ export function contrast(a, b) {
 export function chosen(profile) {
   if (!profile.selection) throw Error('Choose a direction first.');
   const style = structuredClone(styles.find(s => s.id === profile.selection.styleId));
+  style.palette = conceptFor(profile, style.id).palette;
   if (profile.selection.palette) style.palette = profile.selection.palette;
   return style;
 }
-const digest = profile => hash(JSON.stringify({ answers: profile.answers, selection: profile.selection }));
+const digest = profile => hash(JSON.stringify({ answers: profile.answers, designPlan: profile.designPlan, selection: profile.selection }));
 function fonts(dir) {
   const source = join(root, 'assets/fonts');
   if (existsSync(source)) cpSync(source, join(dir, 'fonts'), { recursive: true });
@@ -93,15 +102,26 @@ const css = `@font-face{font-family:Inter;src:url('fonts/inter.ttf');font-weight
 const document = (title, content) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeXML(title)}</title><style>${css}</style></head><body><main>${content}</main></body></html>`;
 export function directions(id) {
   const profile = load(id);
+  requirePlan(profile);
   const dir = join(brandDir(id), `directions-v${profile.version}`);
   fonts(dir);
-  for (const style of styles) write(join(dir, `${style.id}.svg`), symbolSVG(style));
-  const cards = styles.map(style => `<article class="card"><div class="art" style="background:${style.palette.paper};color:${style.palette.ink}">${symbolSVG(style)}<div class="name" style="font-family:${style.heading};font-weight:${style.weight}">${escapeXML(profile.answers.businessName)}</div><span>${escapeXML(profile.answers.personality || 'Choose the brand character in chat.')}</span></div><div class="details"><h2>${escapeXML(style.name)}</h2><p>${escapeXML(style.reason)}</p><small>${style.heading} / ${style.body}</small><div class="swatches">${Object.values(style.palette).map(color => `<div class="swatch" style="background:${color};color:${contrast(color, '#FFFFFF') > contrast(color, '#000000') ? '#FFFFFF' : '#000000'}">${color}</div>`).join('')}</div><small>Starter direction: ${style.id}<br>Text contrast: ${contrast(style.palette.ink, style.palette.paper).toFixed(2)}:1</small></div></article>`).join('');
-  write(join(dir, 'index.html'), document('Compare brand directions', `<header><h1>Seven ways to shape your brand</h1><p>${escapeXML(profile.answers.businessName)} · Profile version ${profile.version}</p><p>These are starter concepts. The agent must adapt the symbols, type, and palette to your business before approval.</p></header><section class="cards">${cards}</section>`));
-  return { path: join(dir, 'index.html'), version: profile.version, status: 'starter-concepts' };
+  for (const base of styles) {
+    const concept = conceptFor(profile, base.id);
+    write(join(dir, `${base.id}.svg`), symbolSVG({ ...base, palette: concept.palette }, { custom: concept.customSymbol }));
+  }
+  const cards = styles.map(base => {
+    const style = { ...base, palette: conceptFor(profile, base.id).palette };
+    const concept = conceptFor(profile, style.id);
+    const reason = [concept.businessConnection, concept.customerReason, concept.fontReason, concept.colorReason];
+    return `<article class="card"><div class="art" style="background:${style.palette.paper};color:${style.palette.ink}">${symbolSVG(style, { custom: concept.customSymbol })}<div class="name" style="font-family:${style.heading};font-weight:${style.weight}">${escapeXML(profile.answers.businessName)}</div><span>${escapeXML(concept.subject)}</span></div><div class="details"><h2>${escapeXML(concept.title)}</h2><small>${escapeXML(style.name)} · ${escapeXML(concept.representation)}</small>${reason.map(text => `<p>${escapeXML(text)}</p>`).join('')}<small>${style.heading} / ${style.body}</small><div class="swatches">${Object.values(style.palette).map(color => `<div class="swatch" style="background:${color};color:${contrast(color, '#FFFFFF') > contrast(color, '#000000') ? '#FFFFFF' : '#000000'}">${color}</div>`).join('')}</div><small>Concept: ${style.id}<br>Text contrast: ${contrast(style.palette.ink, style.palette.paper).toFixed(2)}:1</small></div></article>`;
+  }).join('');
+  write(join(dir, 'index.html'), document('Compare brand directions', `<header><h1>Seven ideas with a business reason</h1><p>${escapeXML(profile.answers.businessName)} · Profile version ${profile.version}</p><p>${escapeXML(profile.designPlan.businessSummary)}</p><p>Reference review: ${escapeXML(profile.designPlan.referenceReview.summary)}</p><p>These are business-linked concept drafts. Review the subject and design reasons before sample selection.</p></header><section class="cards">${cards}</section>`));
+  json(join(dir, 'design-plan.json'), profile.designPlan);
+  return { path: join(dir, 'index.html'), version: profile.version, status: 'business-linked-concepts' };
 }
 export function sample(id, expectedVersion) {
   const profile = current(id, expectedVersion);
+  requirePlan(profile);
   const style = chosen(profile);
   const version = profile.version + 1;
   const dir = join(brandDir(id), `sample-v${version}`);
@@ -118,10 +138,13 @@ export function sample(id, expectedVersion) {
   };
   for (const [name, data] of Object.entries(assets)) write(join(dir, name), data);
   const sizes = [16, 24, 32, 64, 128].map(size => `<div><img src="symbol.svg" width="${size}" height="${size}" alt="Symbol at ${size} pixels"><small>${size} px</small></div>`).join('');
-  const content = `<header><h1>${escapeXML(profile.answers.businessName)}</h1><p>${escapeXML(style.name)} · Sample version ${version}</p><p>${escapeXML(profile.selection.reason)}</p><p>This draft uses editable text. Check the actual fonts before approval. An outlined wordmark needs a separate export.</p></header><section class="preview" style="background:${style.palette.paper}"><h2>Primary logo</h2>${logoSVG(profile.answers.businessName, style, { custom })}</section><section class="preview"><h2>Small symbol check</h2><div class="sizes">${sizes}</div></section><section class="cards"><div class="preview"><h2>Construction guides</h2><img src="symbol-guides.svg" alt="Construction guides"><p>The guides show the grid, central axes, and a bounding reference. They do not prove that a custom symbol is symmetrical.</p></div><div class="preview" style="background:${style.palette.ink};color:${style.palette.paper}"><h2>Reverse logo</h2>${logoSVG(profile.answers.businessName, style, { color: '#FFFFFF', custom })}<p>Check contrast on the actual background.</p></div></section><section class="preview"><h2>Type and color</h2><p style="font-family:${style.heading};font-size:36px">A clear voice for your business.</p><p>Body type: ${style.body}. Heading type: ${style.heading}.</p><p>Text contrast: ${contrast(style.palette.ink, style.palette.paper).toFixed(2)}:1. Accent contrast: ${contrast(style.palette.accent, style.palette.paper).toFixed(2)}:1.</p><p>These ratios describe these color pairs only. Check each final text size and background.</p></section>`;
+  const concept = conceptFor(profile, style.id);
+  const logic = `<h2>Why this logo</h2><p>Subject: ${escapeXML(concept.subject)}.</p><p>${escapeXML(concept.businessConnection)}</p><p>${escapeXML(concept.customerReason)}</p><p>${escapeXML(concept.fontReason)}</p><p>${escapeXML(concept.colorReason)}</p><p>${escapeXML(concept.symmetryReason)}</p>`;
+  const content = `<header><h1>${escapeXML(profile.answers.businessName)}</h1><p>${escapeXML(style.name)} · Sample version ${version}</p><p>${escapeXML(profile.selection.reason)}</p>${logic}<p>This draft uses editable text. Check the actual fonts before approval. An outlined wordmark needs a separate export.</p></header><section class="preview" style="background:${style.palette.paper}"><h2>Primary logo</h2>${logoSVG(profile.answers.businessName, style, { custom })}</section><section class="preview"><h2>Small symbol check</h2><div class="sizes">${sizes}</div></section><section class="cards"><div class="preview"><h2>Construction guides</h2><img src="symbol-guides.svg" alt="Construction guides"><p>The guides show the grid, central axes, and a bounding reference. They do not prove that a custom symbol is symmetrical.</p></div><div class="preview" style="background:${style.palette.ink};color:${style.palette.paper}"><h2>Reverse logo</h2>${logoSVG(profile.answers.businessName, style, { color: '#FFFFFF', custom })}<p>Check contrast on the actual background.</p></div></section><section class="preview"><h2>Type and color</h2><p style="font-family:${style.heading};font-size:36px">A clear voice for your business.</p><p>Body type: ${style.body}. Heading type: ${style.heading}.</p><p>Text contrast: ${contrast(style.palette.ink, style.palette.paper).toFixed(2)}:1. Accent contrast: ${contrast(style.palette.accent, style.palette.paper).toFixed(2)}:1.</p><p>These ratios describe these color pairs only. Check each final text size and background.</p></section>`;
   write(join(dir, 'index.html'), document('Review the logo sample', content));
+  json(join(dir, 'design-plan.json'), profile.designPlan);
   // Bind approval to every review file, font, and license, as well as the profile.
-  const files = Object.keys(assets).concat('index.html', 'fonts/inter.ttf', 'fonts/fraunces.ttf', 'fonts/inter-OFL.txt', 'fonts/fraunces-OFL.txt', 'fonts/sources.json');
+  const files = Object.keys(assets).concat('index.html', 'design-plan.json', 'fonts/inter.ttf', 'fonts/fraunces.ttf', 'fonts/inter-OFL.txt', 'fonts/fraunces-OFL.txt', 'fonts/sources.json');
   const fileHashes = Object.fromEntries(files.map(name => [name, hash(readFileSync(join(dir, name)))]));
   const record = { version, directory: `sample-v${version}`, profileDigest: digest(profile), files: fileHashes, status: 'draft' };
   record.hash = hash(JSON.stringify(record));
@@ -130,6 +153,7 @@ export function sample(id, expectedVersion) {
   return { version: updated.version, sampleHash: record.hash, path: join(dir, 'index.html'), status: 'draft' };
 }
 function verifySample(profile) {
+  requirePlan(profile);
   if (!profile.sample || profile.sample.profileDigest !== digest(profile)) throw Error('Create a new sample for the current profile.');
   const dir = join(brandDir(profile.id), profile.sample.directory);
   for (const [name, expected] of Object.entries(profile.sample.files)) {

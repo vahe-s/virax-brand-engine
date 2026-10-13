@@ -1,4 +1,4 @@
-import { init, next, save, load, select, directions, sample, approve, kit, readJSON, root, styles, questions } from './engine.js';
+import { init, next, save, plan, load, select, directions, sample, approve, kit, readJSON, root, styles, questions } from './engine.js';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -10,6 +10,7 @@ try {
     case 'next': result = next(id); break;
     case 'show': result = load(id); break;
     case 'save': result = save(id, readJSON(file)); break;
+    case 'plan': result = plan(id, readJSON(file)); break;
     case 'directions': result = directions(id); break;
     case 'select': result = select(id, readJSON(file)); break;
     case 'sample': result = sample(id, Number(file)); break;
@@ -22,7 +23,7 @@ try {
       if (!ok) process.exitCode = 1;
       break;
     }
-    default: result = { commands: ['doctor', 'init "Business name"', 'next BRAND_ID', 'show BRAND_ID', 'save BRAND_ID answers.json', 'directions BRAND_ID', 'select BRAND_ID selection.json', 'sample BRAND_ID VERSION', 'approve BRAND_ID approval.json', 'kit BRAND_ID'] };
+    default: result = { commands: ['doctor', 'init "Business name"', 'next BRAND_ID', 'show BRAND_ID', 'save BRAND_ID answers.json', 'plan BRAND_ID design-plan.json', 'directions BRAND_ID', 'select BRAND_ID selection.json', 'sample BRAND_ID VERSION', 'approve BRAND_ID approval.json', 'kit BRAND_ID'] };
   }
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
 } catch (error) {

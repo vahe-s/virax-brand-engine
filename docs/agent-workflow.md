@@ -27,13 +27,18 @@ Record the reason when you skip a question.
 ## Design seven directions
 
 Read the business brief and its required uses.
+Read docs/design-logic.md.
+Ask about the icon subject and optional references.
+Explain the product connection and customer reason before artwork.
+Save the design plan with the `plan` command.
+The engine rejects artwork commands without this plan.
 Use catalog/styles.json as a point of departure.
 Choose distinct structures, type treatments, palettes, and relevant applications.
 Explain why each direction fits the business.
 Do not claim that a business name on a catalog board makes the artwork custom.
 
 Use native SVG geometry for symbols and construction guides.
-Use the custom geometric input when it fits the workbench.
+Store custom geometry inside each concept in the design plan.
 For designs outside that input, save separate SVG sources in the private task folder.
 Keep those files in an explicit review manifest.
 Do not call an untracked custom file part of a CLI approval.

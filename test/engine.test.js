@@ -3,12 +3,17 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, readFileSync, existsSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { init, next, save, select, directions, sample, approve, kit, brandDir, load, contrast, styles, root, readJSON } from '../src/engine.js';
+import { init, next, save, plan, select, directions, sample, approve, kit, brandDir, load, contrast, styles, root, readJSON } from '../src/engine.js';
 import { customGeometry, symbolSVG } from '../src/geometry.js';
 
 process.env.VIRAX_BRAND_DATA = mkdtempSync(join(tmpdir(), 'virax-brand-test-'));
+const planned = (name = 'Example & Co') => {
+  let profile = init(name);
+  profile = save(profile.id, { ...readJSON(join(root, 'examples/fieldwork-answers.json')), expectedVersion: profile.version });
+  return plan(profile.id, { ...readJSON(join(root, 'examples/coffee-design-plan.json')), expectedVersion: profile.version });
+};
 const selected = () => {
-  const profile = init('Example & Co');
+  const profile = planned();
   return select(profile.id, { expectedVersion: profile.version, styleId: 'precision', reason: 'The test needs a clear symbol.' });
 };
 const approved = () => {
@@ -43,7 +48,7 @@ test('Private paths reject directory traversal and separate business profiles.',
   assert.notEqual(init('Same name').id, init('Same name').id);
 });
 test('Seven directions contain escaped owner text and distinct symbol geometry.', () => {
-  const profile = init('<script> & Co');
+  const profile = planned('<script> & Co');
   const board = directions(profile.id);
   const html = readFileSync(board.path, 'utf8');
   assert.ok(html.includes('&lt;script&gt; &amp; Co'));
@@ -64,8 +69,8 @@ test('Custom geometry accepts direct vector shapes and rejects active or externa
   assert.throws(() => customGeometry({ elements: [{ tag: 'path', attrs: { d: 'M0 0"/><image href="https://example.com' } }] }), /Invalid path/);
 });
 test('Invalid colors cannot inject SVG attributes.', () => {
-  const profile = init('Example');
-  assert.throws(() => select(profile.id, { expectedVersion: 1, styleId: 'bold', reason: 'Test', palette: { ink: 'red" onclick="x', paper: '#FFFFFF', accent: '#000000' } }), /HEX/);
+  const profile = planned('Example');
+  assert.throws(() => select(profile.id, { expectedVersion: profile.version, styleId: 'bold', reason: 'Test', palette: { ink: 'red" onclick="x', paper: '#FFFFFF', accent: '#000000' } }), /HEX/);
 });
 test('The kit requires approval for the exact sample.', () => {
   const profile = selected();
@@ -85,7 +90,8 @@ test('A brand rule change clears approval and requires a new sample.', () => {
   const changed = save(profile.id, { expectedVersion: profile.version, answers: { rules: 'Use larger clear space.' } });
   assert.equal(changed.approval, null);
   assert.equal(changed.sample, null);
-  assert.throws(() => kit(profile.id), /new sample/);
+  assert.equal(changed.designPlan, null);
+  assert.throws(() => kit(profile.id), /design plan before artwork/);
 });
 test('An approved kit preserves the source and leaves production checks pending.', () => {
   const profile = approved();
@@ -100,4 +106,53 @@ test('Contrast matches known reference pairs.', () => {
   assert.equal(contrast('#000000', '#FFFFFF'), 21);
   assert.equal(contrast('#FFFFFF', '#FFFFFF'), 1);
   assert.ok(Math.abs(contrast('#777777', '#FFFFFF') - 4.478) < .01);
+});
+test('Directions and selection require a design plan before artwork.', () => {
+  const profile = init('Example');
+  assert.throws(() => directions(profile.id), /design plan before artwork/);
+  assert.throws(() => select(profile.id, { expectedVersion: 1, styleId: 'precision', reason: 'Test' }), /design plan before artwork/);
+});
+test('The design plan requires interview answers and business-linked geometry.', () => {
+  const profile = init('Example');
+  const input = readJSON(join(root, 'examples/coffee-design-plan.json'));
+  assert.throws(() => plan(profile.id, { ...input, expectedVersion: 1 }), /design questions first/);
+  const ready = save(profile.id, { ...readJSON(join(root, 'examples/fieldwork-answers.json')), expectedVersion: 1 });
+  delete input.concepts[0].customSymbol;
+  assert.throws(() => plan(profile.id, { ...input, expectedVersion: ready.version }), /business-linked geometry/);
+});
+test('Abstract symbols require an owner permission record.', () => {
+  const profile = planned();
+  const input = readJSON(join(root, 'examples/coffee-design-plan.json'));
+  input.concepts[0].representation = 'abstract';
+  assert.throws(() => plan(profile.id, { ...input, expectedVersion: profile.version }), /owner permission/);
+});
+test('The selected symbol comes from its concept, and the exact plan belongs to the sample.', () => {
+  const profile = selected();
+  assert.deepEqual(profile.selection.customSymbol, profile.designPlan.concepts[0].customSymbol);
+  const draft = sample(profile.id, profile.version);
+  const updated = load(profile.id);
+  assert.deepEqual(readJSON(join(brandDir(profile.id), updated.sample.directory, 'design-plan.json')), profile.designPlan);
+  assert.ok(updated.sample.files['design-plan.json']);
+  assert.equal(draft.version, updated.version);
+});
+test('A plan change clears prior selection and approval.', () => {
+  const profile = approved();
+  const updated = plan(profile.id, { ...readJSON(join(root, 'examples/coffee-design-plan.json')), expectedVersion: profile.version });
+  assert.equal(updated.selection, null);
+  assert.equal(updated.sample, null);
+  assert.equal(updated.approval, null);
+});
+test('A concept requires valid palette values, answer links, reasons, and inspected source records.', () => {
+  const profile = planned();
+  const mutations = [
+    [input => { input.concepts[0].palette.ink = 'red'; }, /HEX colors/],
+    [input => { input.concepts[0].answerLinks = ['personality']; }, /Link each concept/],
+    [input => { input.concepts[0].customerReason = ''; }, /customerReason/],
+    [input => { input.referenceReview.mode = 'provided'; }, /inspected reference sources/]
+  ];
+  for (const [mutate, expected] of mutations) {
+    const input = readJSON(join(root, 'examples/coffee-design-plan.json'));
+    mutate(input);
+    assert.throws(() => plan(profile.id, { ...input, expectedVersion: profile.version }), expected);
+  }
 });

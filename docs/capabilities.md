@@ -3,8 +3,9 @@
 | Function | Local repo | Agent responsibility |
 | --- | --- | --- |
 | Questionnaire | Saved answers, history, and next three questions | Natural conversation and useful follow-up questions |
-| Visual directions | Seven fixed starter boards | Business-specific designs and reasons |
-| Symbol | Seven geometric starters and custom primitive input | Original concept, bounds, and visual refinement |
+| Design plan | Required subject, business, customer, reference, type, color, and geometry records | Sound design reasons and actual reference inspection |
+| Visual directions | Seven previews from the saved business-linked concepts | Original concepts and brief checks |
+| Symbol | Custom primitive input from the design plan | Original subject, bounds, and visual refinement |
 | Construction guides | Grid, axes, bounding reference, and circle | Actual geometry checks and optical corrections |
 | Fonts | Bundled Inter and Fraunces previews | Additional font choice, scripts, glyph checks, and exact licenses |
 | Colors | HEX palette and contrast ratios | Actual use, unrounded thresholds, and printer proof |
