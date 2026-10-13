@@ -20,6 +20,8 @@ npm run engine -- kit BRAND_ID
 
 Read templates/answers.json and templates/selection.json for the input format.
 Use templates/design-plan.json for the concept records.
+Set `logoMode` in the selection file for the primary format.
+Read docs/logo-formats.md for the accepted values and optional outline records.
 Use templates/custom-symbol.json inside a concept's `customSymbol` field.
 See examples/coffee-design-plan.json for a complete fictional example.
 Create business-linked geometry for every concept before the `directions` command.

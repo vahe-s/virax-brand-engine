@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { init, next, save, plan, select, directions, sample, approve, kit, brandDir, load, contrast, styles, root, readJSON } from '../src/engine.js';
 import { customGeometry, symbolSVG } from '../src/geometry.js';
+import { layoutSVG, logoModes } from '../src/layouts.js';
 
 process.env.VIRAX_BRAND_DATA = mkdtempSync(join(tmpdir(), 'virax-brand-test-'));
 const planned = (name = 'Example & Co') => {
@@ -79,11 +80,38 @@ test('The kit requires approval for the exact sample.', () => {
   assert.throws(() => approve(profile.id, { expectedVersion: draft.version, sampleHash: 'wrong', approvedBy: 'Test', basis: 'Fixture' }), /exact sample hash/);
 });
 test('A changed SVG or review board invalidates export.', () => {
-  for (const file of ['symbol.svg', 'index.html']) {
+  for (const file of ['symbol.svg', 'wordmark.svg', 'logo-stacked.svg', 'index.html']) {
     const profile = approved();
     writeFileSync(join(brandDir(profile.id), profile.sample.directory, file), 'Modified');
     assert.throws(() => kit(profile.id), /sample changed/);
   }
+});
+test('The primary file follows each supported layout, with no live text in outlined examples.', () => {
+  for (const mode of logoModes) {
+    let profile = planned();
+    const design = readJSON(join(root, 'examples/coffee-design-plan.json'));
+    const concept = design.concepts[0];
+    concept.wordmarkGeometry = readJSON(join(root, 'examples/logo-formats/wordmark-geometry.json'));
+    concept.integratedWordmark = readJSON(join(root, 'examples/logo-formats/integrated-geometry.json'));
+    concept.wordmarkReason = 'The coffee bean replaces the dot above the i.';
+    profile = plan(profile.id, { ...design, expectedVersion: profile.version });
+    profile = select(profile.id, { expectedVersion: profile.version, styleId: 'precision', logoMode: mode, reason: 'Test the selected layout.' });
+    sample(profile.id, profile.version);
+    const updated = load(profile.id);
+    const svg = readFileSync(join(brandDir(profile.id), updated.sample.directory, 'primary-logo.svg'), 'utf8');
+    assert.equal(svg, layoutSVG(profile.answers.businessName, { ...styles[0], palette: concept.palette }, concept, mode));
+    assert.ok(!svg.includes('<text'));
+    assert.ok(updated.sample.files['wordmark.svg']);
+    assert.ok(updated.sample.files['logo-stacked.svg']);
+  }
+});
+test('An integrated selection requires its geometric source and business reason.', () => {
+  const profile = planned();
+  assert.throws(() => select(profile.id, { expectedVersion: profile.version, styleId: 'precision', logoMode: 'integrated-wordmark', reason: 'Test' }), /integrated letter geometry/);
+  assert.throws(() => select(profile.id, { expectedVersion: profile.version, styleId: 'precision', logoMode: 'unknown', reason: 'Test' }), /supported logo layout/);
+  const design = readJSON(join(root, 'examples/coffee-design-plan.json'));
+  design.concepts[0].integratedWordmark = readJSON(join(root, 'examples/logo-formats/integrated-geometry.json'));
+  assert.throws(() => plan(profile.id, { ...design, expectedVersion: profile.version }), /wordmark and any letter change/);
 });
 test('A brand rule change clears approval and requires a new sample.', () => {
   const profile = approved();

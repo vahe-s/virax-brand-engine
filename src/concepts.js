@@ -1,4 +1,5 @@
 import { customGeometry } from './geometry.js';
+import { validateWordmark } from './layouts.js';
 
 export const designInputs = ['offer', 'audience', 'difference', 'personality', 'references', 'visualSubjects', 'logoType', 'symmetry', 'uses'];
 const text = value => typeof value === 'string' && value.trim().length > 0;
@@ -28,6 +29,12 @@ export function validatePlan(profile, input, styles) {
     if (!concept.customSymbol) throw Error('Supply business-linked geometry. Do not reuse an unrelated catalog icon.');
     if (!concept.palette || Object.keys(concept.palette).sort().join(',') !== 'accent,ink,paper' || Object.values(concept.palette).some(color => typeof color !== 'string' || !/^#[\da-f]{6}$/i.test(color))) throw Error('Supply business-linked ink, paper, and accent HEX colors.');
     customGeometry(concept.customSymbol);
+    for (const key of ['wordmarkGeometry', 'integratedWordmark']) {
+      if (concept[key]) {
+        validateWordmark(concept[key]);
+        if (!text(concept.wordmarkReason)) throw Error('Record why the wordmark and any letter change fit the business.');
+      }
+    }
   }
   return structuredClone({ businessSummary: input.businessSummary, referenceReview: input.referenceReview, abstractPermission: input.abstractPermission || null, concepts: input.concepts });
 }

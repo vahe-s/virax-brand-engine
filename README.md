@@ -63,6 +63,8 @@ It does not record a real approval.
 Read [docs/commands.md](docs/commands.md) for the agent commands.
 Read [docs/questionnaire.md](docs/questionnaire.md) for the interview flow.
 Read [docs/design-logic.md](docs/design-logic.md) for the decisions required before artwork.
+Read [docs/logo-formats.md](docs/logo-formats.md) for separate, combined, and integrated text options.
+The repo includes the supplied [logo-design skill](https://github.com/kaankiziltug/logo-design-skill) with its license and source record.
 Read [docs/logo-construction.md](docs/logo-construction.md) for the SVG rules.
 Read [docs/brand-kit.md](docs/brand-kit.md) for the delivery checks.
 
@@ -77,8 +79,10 @@ The engine requires each concept's subject, business connection, customer reason
 The agent must inspect whether the artwork and reasons actually fit the brief.
 
 The generator exports editable SVG text.
+It uses outlined type when the design plan supplies wordmark geometry.
+The fictional format example contains outlined type and a custom coffee bean above the letter i.
 An outlined wordmark stores each letter as a shape.
-The agent must use a vector tool for that separate export.
+The agent must supply safe letter paths or use a vector tool for that separate export.
 PNG, PDF, print colors, and custom layouts need suitable tools and a separate inspection.
 The repo does not claim name clearance or exclusive rights to starter symbols.
 
@@ -111,6 +115,9 @@ git diff --check
 
 The code uses the MIT License.
 The bundled fonts use their own licenses.
+The skill's reference logos retain their owners' rights.
+
+![Separate and combined logo format concepts](examples/logo-formats/concepts.png)
 
 Use `node scripts/browser-qa.js` for the optional headless browser checks.
 Headless means that the browser runs without a visible window.

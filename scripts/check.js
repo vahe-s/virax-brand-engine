@@ -6,6 +6,7 @@ import { root, hash, styles, questions } from '../src/engine.js';
 const required = ['README.md', 'START-HERE.md', 'AGENTS.md', 'PROJECT-INSTRUCTIONS.md', 'LICENSE', 'package-lock.json', 'docs/agent-workflow.md', 'docs/questionnaire.md', 'docs/logo-construction.md', 'docs/fonts-and-colors.md', 'docs/brand-kit.md', 'docs/capabilities.md'];
 const files = [];
 required.push('docs/design-logic.md', 'templates/design-plan.json');
+required.push('.agents/skills/logo-design/SKILL.md', '.agents/skills/logo-design/LICENSE', '.agents/skills/logo-design/TRADEMARKS.md', 'docs/logo-formats.md', 'docs/logo-design-skill.md');
 function walk(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     if (['.git', '.data', 'node_modules'].includes(entry.name)) continue;

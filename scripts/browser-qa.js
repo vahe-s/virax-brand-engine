@@ -53,7 +53,14 @@ try {
   await send('Runtime.enable');
   let profile = init('Fieldwork Coffee');
   profile = save(profile.id, readJSON(join(root, 'examples/fieldwork-answers.json')));
-  profile = plan(profile.id, { ...readJSON(join(root, 'examples/coffee-design-plan.json')), expectedVersion: profile.version });
+  const design = readJSON(join(root, 'examples/coffee-design-plan.json'));
+  if (process.argv.includes('--formats')) {
+    const editorial = design.concepts.find(concept => concept.styleId === 'editorial');
+    editorial.wordmarkGeometry = readJSON(join(root, 'examples/logo-formats/wordmark-geometry.json'));
+    editorial.integratedWordmark = readJSON(join(root, 'examples/logo-formats/integrated-geometry.json'));
+    editorial.wordmarkReason = 'A coffee bean replaces the dot above the i. The letter stem stays intact.';
+  }
+  profile = plan(profile.id, { ...design, expectedVersion: profile.version });
   const board = directions(profile.id);
   profile = select(profile.id, { expectedVersion: profile.version, styleId: 'editorial', reason: 'The fictional cafe needs warm colors and clear type.' });
   const draft = sample(profile.id, profile.version);

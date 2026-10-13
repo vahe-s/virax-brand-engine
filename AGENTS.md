@@ -2,6 +2,8 @@
 
 Read START-HERE.md and docs/agent-workflow.md before setup or design work.
 Read docs/design-logic.md before any logo concept.
+Read .agents/skills/logo-design/SKILL.md and docs/logo-design-skill.md before logo or wordmark work.
+Read docs/logo-formats.md before symbol and text layouts.
 Use the project chat as the main questionnaire.
 Ask at most three short questions at once.
 Save useful answers and skip answered questions.
@@ -39,6 +41,11 @@ Show seven distinct visual directions with actual previews and business-specific
 Do not present unchanged catalog shapes as exclusive custom designs.
 Allow mixed styles and custom requests.
 Use direct SVG geometry when the brief needs a custom symbol.
+Offer symbol-only, wordmark-only, horizontal, stacked, and integrated letter options when they fit the brief.
+Keep the separate symbol and wordmark available when a combined logo is selected.
+Preserve letter readability in every integrated concept.
+Store integrated letter geometry and its business reason in the design plan.
+Use outlined paths in final logo text.
 Keep construction guides in separate files or removable layers.
 Use symmetry only when the brief calls for it.
 Explain optical balance when exact symmetry harms the result.

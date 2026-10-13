@@ -10,6 +10,8 @@
 | Fonts | Bundled Inter and Fraunces previews | Additional font choice, scripts, glyph checks, and exact licenses |
 | Colors | HEX palette and contrast ratios | Actual use, unrounded thresholds, and printer proof |
 | Logo source | Clean SVG shapes and editable name text | Outline export and comparison |
+| Logo format | Separate symbol, wordmark, horizontal, stacked, and supplied integrated geometry | Type spacing, custom letter craft, and readability checks |
+| Outlined type | Renders supplied safe geometric letter paths | Licensed source, actual spelling, spacing, and final inspection |
 | Sample approval | Exact file hashes and stale-version checks | Actual owner approval and evidence |
 | Brand kit | SVG files, profile, tokens, licenses, and guide | Requested applications and final inspection |
 | PNG and PDF | No automatic export | Suitable export tools and visual inspection |

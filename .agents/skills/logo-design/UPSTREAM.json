@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/kaankiziltug/logo-design-skill",
+  "commit": "0ecf52e9a4b3ac92b714f7cc6e3148ab8c774134",
+  "path": "skills/logo-design",
+  "checkedDate": "2026-10-13",
+  "license": "MIT for skill code and documentation. Library logos retain their owners' rights.",
+  "localAdditions": ["LICENSE", "TRADEMARKS.md", "UPSTREAM.json"]
+}
